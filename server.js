@@ -7,9 +7,9 @@ app.use(cors());
 app.use(express.json());
 
 // These are routers that handle different resources.
-const indexRouter = require('./routes/index/index')
+const signInRouter = require('./routes/signIn')
 
-app.use('/', indexRouter);
+app.use('/signIn', signInRouter);
 
 // This runs when an unknown route and HTTP method combination is
 // received.

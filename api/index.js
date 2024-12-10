@@ -8,6 +8,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.get('/', (req, res) => res.status(200).send('Expenses Server'));
+
 // These are routers that handle different resources.
 const signInRouter = require('./routes/signIn')
 app.use('/signIn', signInRouter);

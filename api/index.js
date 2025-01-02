@@ -11,6 +11,8 @@ app.get('/', (req, res) => res.status(200).send('Expenses Server'));
 
 const signInRouter = require('./routes/signIn')
 app.use('/signIn', signInRouter);
+const signUpRouter = require('./routes/signUp')
+app.use('/signUp', signUpRouter);
 
 app.use((req, res) => {
   const message = (

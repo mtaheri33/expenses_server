@@ -7,8 +7,7 @@ const router = express.Router();
 const users = mongoose.users;
 
 router.post('/', async (req, res) => {
-  const email = req.body.email;
-  const password = req.body.password;
+  const { email, password } = req.body;
   const success = await users.signIn(email, password);
   if (success) {
     res.status(200).send();

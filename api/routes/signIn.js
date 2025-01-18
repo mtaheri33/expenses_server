@@ -12,7 +12,7 @@ router.post('/', async (req, res) => {
   if (success) {
     res.status(200).send();
   }
-  res.status(404).send();
+  res.status(400).send();
 });
 
 module.exports = router;

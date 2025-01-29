@@ -10,9 +10,9 @@ app.use(express.json());
 app.get('/', (req, res) => res.status(200).send('Expenses Server'));
 
 const signInRouter = require('./routes/signIn')
-app.use('/signIn', signInRouter);
+app.use('/signin', signInRouter);
 const signUpRouter = require('./routes/signUp')
-app.use('/signUp', signUpRouter);
+app.use('/signup', signUpRouter);
 
 app.use((req, res) => {
   const message = (

@@ -1,6 +1,7 @@
 // This is for the users MongoDB collection.
 
 const mongoose = require('mongoose');
+const { hashPassword, checkPassword } = require('../utilities');
 
 const userSchema = new mongoose.Schema({
   email: String,
@@ -17,7 +18,8 @@ async function create(email, password) {
   if (search.length !== 0) {
     return false;
   }
-  const user = new User({ email, password });
+  const hashedPassword = await hashPassword(password);
+  const user = new User({ email, password: hashedPassword });
   return await user.save();
 };
 
@@ -27,10 +29,7 @@ async function signIn(email, password) {
     return false;
   }
   const user = search[0];
-  if (password !== user.password) {
-    return false;
-  }
-  return true;
+  return await checkPassword(password, user.password);
 }
 
 module.exports = {

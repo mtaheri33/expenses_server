@@ -15,9 +15,7 @@ const signUpRouter = require('./routes/signUp')
 app.use('/signup', signUpRouter);
 
 app.use((req, res) => {
-  const message = (
-    `There is no route ${req.url} that supports a ${req.method} request.`
-  );
+  const message = `There is no route ${req.url} that supports a ${req.method} request.`;
   res.status(404).send(message);
 });
 

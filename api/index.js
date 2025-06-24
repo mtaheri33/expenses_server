@@ -19,6 +19,8 @@ app.use((req, res) => {
   res.status(404).send(message);
 });
 
+app.use((err, req, res, next) => res.status(500).send('Sorry, an error occurred.'));
+
 app.listen(3000, () => { });
 
 module.exports = app;

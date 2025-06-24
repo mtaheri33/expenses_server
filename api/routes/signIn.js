@@ -6,7 +6,7 @@ const mongooseHandler = require('../mongoose/mongooseHandler');
 const router = express.Router();
 const users = mongooseHandler.users;
 
-router.post('/', async (req, res) => {
+router.post('/', async (req, res, next) => {
   /*
   Request:
   body required JSON {
@@ -18,12 +18,16 @@ router.post('/', async (req, res) => {
   200
   400
   */
-  const { email, password } = req.body;
-  const success = await users.signIn(email, password);
-  if (success) {
-    res.status(200).send();
+  try {
+    const { email, password } = req.body;
+    const success = await users.signIn(email, password);
+    if (success) {
+      res.status(200).send();
+    }
+    res.status(400).send();
+  } catch (error) {
+    next(error);
   }
-  res.status(400).send();
 });
 
 module.exports = router;

@@ -22,12 +22,16 @@ async function hashPassword(password) {
 }
 
 async function readByEmail(email) {
-  return await User.find({ email });
+  const user = await User.find({ email });
+  if (user.length === 0) {
+    return false;
+  }
+  return user[0];
 };
 
 async function create(email, password) {
   const search = await readByEmail(email);
-  if (search.length !== 0) {
+  if (search) {
     return false;
   }
   const hashedPassword = await hashPassword(password);
@@ -40,13 +44,27 @@ async function checkPassword(password, hashedPassword) {
 }
 
 async function signIn(email, password) {
-  const search = await readByEmail(email);
-  if (search.length === 0) {
+  const user = await readByEmail(email);
+  if (!user) {
     return false;
   }
-  const user = search[0];
-  return await checkPassword(password, user.password);
+  const success = await checkPassword(password, user.password);
+  if (success) {
+    return user;
+  }
+  return false;
 }
+
+async function readById(id) {
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return false;
+  }
+  const user = await User.findById(id);
+  if (user) {
+    return user;
+  }
+  return false;
+};
 
 module.exports = {
   create,

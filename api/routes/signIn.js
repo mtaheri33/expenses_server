@@ -1,10 +1,9 @@
 // This handles requests for the /signin resource.
 
 const express = require('express');
-const mongooseHandler = require('../mongoose/mongooseHandler');
+const users = require('../mongoose/users');
 
 const router = express.Router();
-const users = mongooseHandler.users;
 
 router.post('/', async (req, res, next) => {
   try {

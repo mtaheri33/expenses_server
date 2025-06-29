@@ -3,6 +3,9 @@
 const cors = require('cors');
 require('dotenv').config();
 const express = require('express');
+const mongoose = require('mongoose');
+
+mongoose.connect(process.env.DATABASE_ADDRESS).catch(() => { });
 
 const app = express();
 app.use(cors());
